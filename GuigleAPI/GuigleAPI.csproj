@@ -11,6 +11,17 @@
     <AssemblyName>GuigleAPI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PackageId>Easyforce.GuigleAPI</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Gui M Silva</Authors>
+    <Description>Library to access Google APIs such as Geocode and Places APIs</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Easyforce. All rights reserved.</Copyright>
+    <PackageTags>Guigle Google API Geocode Places Maps APIs API's</PackageTags>
+	<TargetFrameworks>net452</TargetFrameworks>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GooglePlacesAPI.cs" />
     <Compile Include="GoogleGeoCodeAPI.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Models\Address.cs" />
@@ -53,4 +65,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\NuGet.Build.Tasks.Pack.4.0.0\build\NuGet.Build.Tasks.Pack.targets" Condition="Exists('..\packages\NuGet.Build.Tasks.Pack.4.0.0\build\NuGet.Build.Tasks.Pack.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NuGet.Build.Tasks.Pack.4.0.0\build\NuGet.Build.Tasks.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NuGet.Build.Tasks.Pack.4.0.0\build\NuGet.Build.Tasks.Pack.targets'))" />
+  </Target>
 </Project>

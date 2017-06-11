@@ -18,6 +18,4 @@ namespace GuigleAPI.Model
         [JsonProperty("next_page_token  ")]
         public string NextPageToken { get; set; }
     }
-
-
 }

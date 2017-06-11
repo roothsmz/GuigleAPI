@@ -20,17 +20,17 @@ namespace Tester
             //GEOCODE
 
             var result1 = Task.Run(async () => await GoogleGeoCodeAPI.SearchAddressAsync("100 Market St, Southbank")).Result;
+            var location1 = result1.Results.FirstOrDefault().Geometry.Location;
 
-            var result2 = Task.Run(async () => await GoogleGeoCodeAPI.GetCoordinatesFromAddressAsync("100 Market St, Southbank")).Result;
+            var location2 = Task.Run(async () => await GoogleGeoCodeAPI.GetCoordinatesFromAddressAsync("322 Kings Way, South Melbourne VIC 3205")).Result;
 
+            var midlePoint = Helper.GetMiddleCoordinates(location1.Lat, location2.Item1, location1.Lng, location2.Item2);            
 
             //PLACES
-
-            var firstResult = result1.Results.FirstOrDefault();
             
-            var result3 = Task.Run(async () => await GooglePlacesAPI.SearchPlaceNearBy(lat: firstResult.Geometry.Location.Lat, lng: firstResult.Geometry.Location.Lng, radiusInMeters: 500, type: GuigleAPI.Model.PlaceType.liquor_store)).Result;
+            var result4 = Task.Run(async () => await GooglePlacesAPI.SearchPlaceNearBy(lat: midlePoint.Item1, lng: midlePoint.Item2, radiusInMeters: 1000, type: GuigleAPI.Model.PlaceType.liquor_store)).Result;
 
-            var result4 = Task.Run(async () => await GooglePlacesAPI.SearchPlaceNearBy(query: "100 Market St, Southbank")).Result;
+            var result5 = Task.Run(async () => await GooglePlacesAPI.SearchPlaceNearBy(query: "100 Market St, Southbank")).Result;
         }
     }
 }

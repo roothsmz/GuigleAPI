@@ -26,5 +26,35 @@ namespace GuigleAPI
             var q = slat * slat + Math.Cos(lat1) * Math.Cos(lat2) * slon * slon;
             return 2 * EarhRadius * Math.Asin(Math.Sqrt(q));
         }
+
+        public static Tuple<double, double> GetMiddleCoordinates(double lat1, double lat2, double lng1, double lng2)
+        {
+            double lat;
+            double lng;
+
+            double dLon = DegreesToRadians(lng2 - lng1);
+            double Bx = Math.Cos(DegreesToRadians(lat2)) * Math.Cos(dLon);
+            double By = Math.Cos(DegreesToRadians(lat2)) * Math.Sin(dLon);
+
+            lat = RadiansToDegrees(Math.Atan2(
+                Math.Sin(DegreesToRadians(lat1)) + Math.Sin(DegreesToRadians(lat2)),
+                Math.Sqrt(
+                    (Math.Cos(DegreesToRadians(lat1)) + Bx) *
+                    (Math.Cos(DegreesToRadians(lat1)) + Bx) + By * By)));
+
+            lng = lng1 + RadiansToDegrees(Math.Atan2(By, Math.Cos(DegreesToRadians(lat1)) + Bx));
+
+            return new Tuple<double, double>(lat, lng);
+        }
+
+        private static double DegreesToRadians(double degrees)
+        {
+            return degrees * (Math.PI / 180.0);
+        }
+
+        private static double RadiansToDegrees(double radians)
+        {
+            return radians * (180.0 / Math.PI);
+        }
     }
 }

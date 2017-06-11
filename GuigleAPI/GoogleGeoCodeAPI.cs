@@ -15,6 +15,13 @@ namespace GuigleAPI
         public static int MaxResponseContentBufferSize { get; set; } = 256000;
         public static string GoogleAPIKey { get; set; }
 
+        /// <summary>
+        /// Gets all addresses returned from Google GeoCode API based on the coordinates provided.
+        /// </summary>
+        /// <param name="client">The HttpClient object. Make sure it's not passed closed.</param>
+        /// <param name="lat">The latitude to search on Google API.</param>
+        /// <param name="lng">The longitude to search on Google API.</param>
+        /// <returns>Returns all results from Google API as an AddressResponse.</returns>
         public static async Task<AddressResponse> GetAddressFromCoordinatesAsync(HttpClient client, double lat, double lng)
         {
             client.MaxResponseContentBufferSize = MaxResponseContentBufferSize;
@@ -31,6 +38,12 @@ namespace GuigleAPI
             }
         }
 
+        /// <summary>
+        /// Gets all addresses returned from Google GeoCode API based on the coordinates provided.
+        /// </summary>
+        /// <param name="lat">The latitude to search on Google API.</param>
+        /// <param name="lng">The longitude to search on Google API.</param>
+        /// <returns>Returns all results from Google API as an AddressResponse.</returns>
         public static async Task<AddressResponse> GetAddressFromCoordinatesAsync(double lat, double lng)
         {
             using (var client = new HttpClient())
@@ -58,9 +71,9 @@ namespace GuigleAPI
 
                 var addressComponentes = contentResult.Results.SelectMany(t => t.AddressComponents);
 
-                var city = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_2))?.ShortName ?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_3))?.ShortName ?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.locality))?.ShortName;
-                var state = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_1))?.ShortName;
-                var country = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.country))?.LongName;
+                var city = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_2.ToString()))?.ShortName ?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_3.ToString()))?.ShortName ?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.locality.ToString()))?.ShortName;
+                var state = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_1.ToString()))?.ShortName;
+                var country = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.country.ToString()))?.LongName;
 
                 return new Tuple<string, string, string>(city, state, country);
             }

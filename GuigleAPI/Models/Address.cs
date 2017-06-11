@@ -25,8 +25,11 @@ namespace GuigleAPI.Model
         public Geometry Geometry { get; set; }
         [JsonProperty("place_id")]
         public string PlaceId { get; set; }
+        /// <summary>
+        /// From enum AddressType
+        /// </summary>
         [JsonProperty("types")]
-        public List<AddressType> Types { get; set; }
+        public List<string> Types { get; set; }
     }
 
     public class AddressComponent
@@ -35,8 +38,11 @@ namespace GuigleAPI.Model
         public string LongName { get; set; }
         [JsonProperty("short_name")]
         public string ShortName { get; set; }
+        /// <summary>
+        /// From enum AddressType
+        /// </summary>
         [JsonProperty("types")]
-        public List<AddressType> Types { get; set; }
+        public List<string> Types { get; set; }
     }
 
     public class Geometry
@@ -76,6 +82,11 @@ namespace GuigleAPI.Model
         locality,
         ward,
         sublocality,
+        sublocality_level_1,
+        sublocality_level_2,
+        sublocality_level_3,
+        sublocality_level_4,
+        sublocality_level_5,
         premise,
         subpremise,
         natural_feature,

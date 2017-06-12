@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GuigleAPI
 {
-    public static class GoogleGeoCodeAPI
+    public static class GoogleGeocodingAPI
     {
         public static string GeoCodeUrl { get; set; } = "https://maps.googleapis.com/maps/api/geocode/";
         public static int MaxResponseContentBufferSize { get; set; } = 256000;

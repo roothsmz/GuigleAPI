@@ -11,7 +11,7 @@ namespace GuigleAPI
 {
     public static class GoogleGeocodingAPI
     {
-        public static string GeoCodeUrl { get; set; } = "https://maps.googleapis.com/maps/api/geocode/";
+        public static string GeocodingUrl { get; set; } = "https://maps.googleapis.com/maps/api/geocode/";
         public static int MaxResponseContentBufferSize { get; set; } = 256000;
         public static string GoogleAPIKey { get; set; }
 
@@ -25,7 +25,7 @@ namespace GuigleAPI
         public static async Task<AddressResponse> GetAddressFromCoordinatesAsync(HttpClient client, double lat, double lng)
         {
             client.MaxResponseContentBufferSize = MaxResponseContentBufferSize;
-            var uri = new Uri(string.Format($"{GeoCodeUrl}json?latlng={lat},{lng}&key={GoogleAPIKey}", string.Empty));
+            var uri = new Uri(string.Format($"{GeocodingUrl}json?latlng={lat},{lng}&key={GoogleAPIKey}", string.Empty));
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -62,7 +62,7 @@ namespace GuigleAPI
         public static async Task<Tuple<string, string, string>> GetCityFromCoordinatesAsync(HttpClient client, double lat, double lng)
         {
             client.MaxResponseContentBufferSize = MaxResponseContentBufferSize;
-            var uri = new Uri(string.Format($"{GeoCodeUrl}json?latlng={lat},{lng}&key={GoogleAPIKey}", string.Empty));
+            var uri = new Uri(string.Format($"{GeocodingUrl}json?latlng={lat},{lng}&key={GoogleAPIKey}", string.Empty));
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -106,7 +106,7 @@ namespace GuigleAPI
         public static async Task<AddressResponse> SearchAddressAsync(HttpClient client, string address)
         {
             client.MaxResponseContentBufferSize = MaxResponseContentBufferSize;
-            var uri = new Uri(string.Format($"{GeoCodeUrl}json?address={address.Replace(" ", "+")}&key={GoogleAPIKey}", string.Empty));
+            var uri = new Uri(string.Format($"{GeocodingUrl}json?address={address.Replace(" ", "+")}&key={GoogleAPIKey}", string.Empty));
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -172,7 +172,7 @@ namespace GuigleAPI
         public static async Task<AddressResponse> SearchAddressAsync(HttpClient client, string address, Tuple<double, double> southwest, Tuple<double, double> northeast)
         {
             client.MaxResponseContentBufferSize = MaxResponseContentBufferSize;
-            var uri = new Uri(string.Format($"{GeoCodeUrl}json?address={address.Replace(" ", "+")}&bounds={southwest.Item1},{southwest.Item2}|{northeast.Item1},{northeast.Item2}&key={GoogleAPIKey}", string.Empty));
+            var uri = new Uri(string.Format($"{GeocodingUrl}json?address={address.Replace(" ", "+")}&bounds={southwest.Item1},{southwest.Item2}|{northeast.Item1},{northeast.Item2}&key={GoogleAPIKey}", string.Empty));
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {

@@ -17,7 +17,7 @@ namespace Tester
             GoogleGeocodingAPI.GoogleAPIKey = GooglePlacesAPI.GoogleAPIKey = TesterRes.GoogleAPIKey; // create your own TesterRes resource and put your google api there
 
 
-            //GEOCODE
+            //GEOCODING
 
             var result1 = Task.Run(async () => await GoogleGeocodingAPI.SearchAddressAsync("100 Market St, Southbank")).Result;
             var location1 = result1.Results.FirstOrDefault().Geometry.Location;

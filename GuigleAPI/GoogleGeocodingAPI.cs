@@ -71,7 +71,7 @@ namespace GuigleAPI
 
                 var addressComponentes = contentResult.Results.SelectMany(t => t.AddressComponents);
 
-                var city = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_2.ToString()))?.ShortName ?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_3.ToString()))?.ShortName ?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.locality.ToString()))?.ShortName;
+                var city = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.locality.ToString()))?.ShortName?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_2.ToString()))?.ShortName ?? addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_3.ToString()))?.ShortName;
                 var state = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.administrative_area_level_1.ToString()))?.ShortName;
                 var country = addressComponentes.FirstOrDefault(r => r.Types.Contains(AddressType.country.ToString()))?.LongName;
 
